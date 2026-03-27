@@ -43,7 +43,7 @@ Never commit `.env` or real account credentials.
 
 ## Using This From AI Skills
 
-Skills for consuming this service should be created by the repository user in their own local Codex skill directory. Do not assume a shared skill is already installed.
+Skills for consuming this service should be created by the repository user in their own local Agents skill directory. Do not assume a shared skill is already installed.
 
 My recommended setup is exactly what I use locally: create user-owned `curl` helper scripts that accept arguments and call this backend. Mention those scripts in the skill instructions so the agent uses them instead of hand-writing requests each time.
 
