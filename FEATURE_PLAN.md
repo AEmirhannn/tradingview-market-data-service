@@ -83,14 +83,14 @@ Acceptance criteria:
 
 ## Phase 2: MCP Server MVP
 
-- [ ] Add a Python MCP dependency after choosing the library.
-- [ ] Create `tradingview_service/mcp/server.py`.
-- [ ] Add `tv_health`.
-- [ ] Add `tv_history`.
-- [ ] Add `tv_history_summary`.
-- [ ] Add `tv_history_multi` for bounded multi-symbol or multi-timeframe requests.
-- [ ] Add tests for tool handlers using fake market-data services.
-- [ ] Add sample MCP config to README.
+- [x] Add a Python MCP dependency after choosing the library.
+- [x] Create `tradingview_service/mcp/server.py`.
+- [x] Add `tv_health`.
+- [x] Add `tv_history`.
+- [x] Add `tv_history_summary`.
+- [x] Add `tv_history_multi` for bounded multi-symbol or multi-timeframe requests.
+- [x] Add tests for tool handlers using fake market-data services.
+- [x] Add sample MCP config to README.
 
 Suggested commits:
 
@@ -103,6 +103,10 @@ Acceptance criteria:
 - MCP server starts over stdio.
 - Tools can be exercised without a live TradingView Desktop app.
 - Large OHLCV output is opt-in or bounded.
+
+Completion log:
+
+- 2026-04-19: Implemented the stdio MCP MVP with `mcp==1.27.0` isolated in `requirements-mcp.txt`, in-process market-data adapters, pure fake-testable tool helpers, FastMCP registration in `server.py`, README setup/config examples, and fake-based tool tests.
 
 ## Phase 3: Technical-Analysis Helpers
 
