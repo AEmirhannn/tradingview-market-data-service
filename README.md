@@ -43,6 +43,50 @@ Run tests with:
 .venv/bin/python -m unittest discover -s tests
 ```
 
+## MCP Server
+
+The MCP server exposes the existing in-process market-data service over stdio. It does not call the local Flask HTTP API, and this MVP does not include TradingView Desktop automation, CDP, screenshots, chart control, Pine tools, or annotation tools.
+
+The MCP dependency is intentionally separate from `requirements.txt` because the current service venv can run on Python 3.9 while `mcp` requires Python 3.10 or newer. Use a separate Python 3.10+ environment for MCP, preferably Python 3.12 where available:
+
+```bash
+/opt/homebrew/bin/python3.12 -m venv /tmp/marketdata-mcp-venv
+/tmp/marketdata-mcp-venv/bin/python -m pip install -r requirements.txt -r requirements-mcp.txt
+/tmp/marketdata-mcp-venv/bin/python -c "from tradingview_service.mcp.server import create_server; create_server()"
+```
+
+Run the MCP server over stdio with:
+
+```bash
+PYTHONPATH=/Users/aemirhan/Desktop/Projects/marketData \
+  /tmp/marketdata-mcp-venv/bin/python -m tradingview_service.mcp.server
+```
+
+Available tools:
+
+- `tv_health`: returns service status, configured port, auth health, default limit, max limit, and cache TTL.
+- `tv_history`: returns full OHLCV bars for one symbol and interval.
+- `tv_history_summary`: returns a compact OHLCV summary for one symbol and interval.
+- `tv_history_multi`: returns compact summaries for up to 12 symbol/interval requests.
+
+`tv_history`, `tv_history_summary`, and each `tv_history_multi` request use full TradingView symbols and supported intervals. Optional time bounds are `from_ts` and `to_ts` Unix timestamps. Multi-history requests may also use `from` and `to` inside each request object for compatibility with the Flask query names.
+
+Example MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "tradingview-marketdata": {
+      "command": "/tmp/marketdata-mcp-venv/bin/python",
+      "args": ["-m", "tradingview_service.mcp.server"],
+      "env": {
+        "PYTHONPATH": "/Users/aemirhan/Desktop/Projects/marketData"
+      }
+    }
+  }
+}
+```
+
 ## Authentication Mode
 
 The service starts in anonymous mode by default. That avoids credential login issues and is the recommended default for local AI tooling.
