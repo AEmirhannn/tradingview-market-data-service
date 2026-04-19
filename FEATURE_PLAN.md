@@ -106,7 +106,7 @@ Acceptance criteria:
 
 Completion log:
 
-- 2026-04-19: Implemented the stdio MCP MVP with `mcp==1.27.0` isolated in `requirements-mcp.txt`, in-process market-data adapters, pure fake-testable tool helpers, FastMCP registration in `server.py`, README setup/config examples, and fake-based tool tests.
+- 2026-04-19: Implemented the stdio MCP MVP with `mcp==1.27.0`, in-process market-data adapters, pure fake-testable tool helpers, FastMCP registration in `server.py`, README setup/config examples, and fake-based tool tests.
 
 ## Phase 3: Technical-Analysis Helpers
 

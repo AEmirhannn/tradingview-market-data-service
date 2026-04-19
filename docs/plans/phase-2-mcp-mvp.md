@@ -2,14 +2,13 @@
 
 ## Goal
 
-Add a minimal MCP server for market-data access while keeping the existing Flask service and Python 3.9 development path intact.
+Add a minimal MCP server for market-data access using the same Python 3.12 environment as the Flask service.
 
 ## Dependency Decision
 
-- Use the official Python `mcp` package, pinned in a new `requirements-mcp.txt`.
-- Pin `mcp==1.27.0`.
-- Do not add `mcp` to `requirements.txt` because the current project venv is Python 3.9 and `mcp` requires Python `>=3.10`.
-- Document MCP setup with a Python 3.10+ environment, preferably Python 3.12 where available.
+- Use the official Python `mcp` package.
+- Pin `mcp==1.27.0` in `requirements.txt`.
+- Standardize REST and MCP setup on Python 3.12 to avoid split virtual environments.
 
 ## Runtime Decision
 
@@ -47,18 +46,19 @@ Run the existing suite:
 .venv/bin/python -m unittest discover -s tests
 ```
 
-Run MCP dependency verification with Python 3.10+:
+Run MCP dependency verification with Python 3.12:
 
 ```bash
-python3.12 -m venv /tmp/marketdata-mcp-venv
-/tmp/marketdata-mcp-venv/bin/python -m pip install -r requirements.txt -r requirements-mcp.txt
-/tmp/marketdata-mcp-venv/bin/python -m unittest discover -s tests
-/tmp/marketdata-mcp-venv/bin/python -c "from tradingview_service.mcp.server import create_server; create_server()"
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests
+.venv/bin/python -c "from tradingview_service.mcp.server import create_server; create_server()"
+.venv/bin/python scripts/check_mcp.py
 ```
 
 ## Acceptance Criteria
 
-- Existing Flask service tests still pass in the current `.venv`.
-- MCP code can be imported with Python 3.10+ after installing `requirements-mcp.txt`.
+- Existing Flask service tests still pass in `.venv`.
+- MCP code can be imported with Python 3.12 after installing `requirements.txt`.
 - MCP tools do not require TradingView Desktop or CDP.
 - README includes setup and MCP config examples.
