@@ -50,8 +50,8 @@ tradingview_service/
 ## Phase 0: Planning and Guardrails
 
 - [x] Create this feature plan.
-- [ ] Add README section describing the intended MCP and desktop-annotation roadmap.
-- [ ] Add dependency policy for MCP and CDP libraries before implementation.
+- [x] Add README section describing the intended MCP and desktop-annotation roadmap.
+- [x] Add dependency policy for MCP and CDP libraries before implementation.
 - [ ] Decide whether MCP runs in-process against Python services or calls the local Flask API by default.
 
 Suggested commits:
@@ -270,7 +270,8 @@ Use this section to record completed increments.
 | Date | Commit or Branch | Change | Verification |
 |---|---|---|---|
 | 2026-04-19 | pending | Created feature plan | Documentation-only |
+| 2026-04-19 | pending | Documented MCP roadmap and safety boundaries in README | Documentation-only |
 
 ## Current Next Step
 
-Implement Phase 0 follow-up: add a short README roadmap section that points to this document and states the project boundaries.
+Decide whether the MCP layer should call in-process Python services directly or call the local Flask API by default.
