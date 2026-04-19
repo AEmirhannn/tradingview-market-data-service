@@ -52,7 +52,7 @@ tradingview_service/
 - [x] Create this feature plan.
 - [x] Add README section describing the intended MCP and desktop-annotation roadmap.
 - [x] Add dependency policy for MCP and CDP libraries before implementation.
-- [ ] Decide whether MCP runs in-process against Python services or calls the local Flask API by default.
+- [x] Decide whether MCP runs in-process against Python services or calls the local Flask API by default.
 
 Suggested commits:
 
@@ -66,10 +66,10 @@ Acceptance criteria:
 
 ## Phase 1: Internal Market-Data Service Boundary
 
-- [ ] Add a service module that wraps `TradingViewWebSocketClient.fetch_history`.
-- [ ] Keep the Flask route as a caller of this service instead of owning orchestration directly.
-- [ ] Add tests proving the service returns the same payload shape as `/v1/history`.
-- [ ] Preserve current cache behavior and validation semantics.
+- [x] Add a service module that wraps `TradingViewWebSocketClient.fetch_history`.
+- [x] Keep the Flask route as a caller of this service instead of owning orchestration directly.
+- [x] Add tests proving the service returns the same payload shape as `/v1/history`.
+- [x] Preserve current cache behavior and validation semantics.
 
 Suggested commit:
 
@@ -271,7 +271,8 @@ Use this section to record completed increments.
 |---|---|---|---|
 | 2026-04-19 | pending | Created feature plan | Documentation-only |
 | 2026-04-19 | pending | Documented MCP roadmap and safety boundaries in README | Documentation-only |
+| 2026-04-19 | pending | Extracted market-data service boundary | `.venv/bin/python -m unittest discover -s tests` |
 
 ## Current Next Step
 
-Decide whether the MCP layer should call in-process Python services directly or call the local Flask API by default.
+Implement Phase 2: add the MCP server MVP using in-process Python services by default.
