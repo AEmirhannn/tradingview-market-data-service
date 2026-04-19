@@ -9,6 +9,22 @@ Backend Flask service that fetches TradingView chart data and exposes historical
 
 The service accepts full TradingView symbols such as `BINANCE:BTCUSDT` and `NASDAQ:AAPL`. Supported intervals are `1m,3m,5m,15m,30m,45m,1h,2h,3h,4h,1d,1w,1M`.
 
+## Roadmap: MCP and Chart Annotation
+
+This project is planned to grow into a local TradingView MarketData MCP toolchain. The existing Flask service remains the reliable market-data core for historical OHLCV retrieval, validation, caching, and agent-friendly API access.
+
+The next major layers are:
+
+- An MCP server that exposes market-data tools, compact history summaries, and multi-symbol or multi-timeframe requests.
+- Local technical-analysis helpers that run over fetched OHLCV data without depending on a visible chart.
+- Optional TradingView Desktop automation through Chrome DevTools Protocol for chart state, screenshots, and visible annotations.
+
+Desktop automation must stay opt-in and localhost-only. The project will not add trade execution, credential harvesting, remote CDP access, or broad arbitrary UI automation as part of the MVP. Agent-created drawings must be tagged so they can be removed without touching user-created chart objects.
+
+No MCP or CDP dependency is required for the current service. Future MCP and desktop-control libraries should be added only in the smallest implementation commit that uses them. Any new TradingView-hosted upstream calls must be documented before they are introduced.
+
+See [FEATURE_PLAN.md](FEATURE_PLAN.md) for the step-by-step implementation roadmap.
+
 ## Local Run
 
 ```bash
