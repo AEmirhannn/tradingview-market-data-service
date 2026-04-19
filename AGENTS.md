@@ -1,13 +1,13 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Core application code lives in `tradingview_service/`. Keep HTTP wiring in `app.py`, auth and websocket behavior in `auth.py` and `client.py`, configuration in `config.py`, and shared data logic in `models.py` and `cache.py`. The entrypoint is `run.py`. Tests live in `tests/` and mirror the module split with files such as `test_app.py` and `test_client.py`.
+Core application code lives in `tradingview_service/`. Keep HTTP wiring in `app.py`, auth and websocket behavior in `auth.py` and `client.py`, configuration in `config.py`, shared data logic in `models.py`, `cache.py`, and `market_data.py`, and MCP integration in `tradingview_service/mcp/`. The entrypoint is `run.py`. Tests live in `tests/` and mirror the module split with files such as `test_app.py`, `test_client.py`, and `test_mcp_tools_market.py`.
 
 ## Build, Test, and Development Commands
 Create a local environment and install dependencies:
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 ```

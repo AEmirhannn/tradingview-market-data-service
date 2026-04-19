@@ -1,6 +1,5 @@
 .env
 .venv/
-.venv-mcp/
 .skill_stage/
 __pycache__/
 .pytest_cache/

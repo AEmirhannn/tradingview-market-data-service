@@ -33,7 +33,7 @@ The current implementation is the Phase 2 MCP MVP:
 
 - The Flask service is the stable historical-data API.
 - The MCP server calls the same in-process market-data service; it does not call the local Flask HTTP API.
-- The MCP dependency is isolated in `requirements-mcp.txt` because the `mcp` package requires Python 3.10 or newer.
+- REST and MCP use one Python 3.12 virtual environment.
 - No CDP, TradingView Desktop control, screenshots, Pine tools, or chart annotations are included in this release.
 
 Safety boundaries for future work:
@@ -46,10 +46,10 @@ Safety boundaries for future work:
 
 ## REST Service Setup
 
-Create a virtual environment and install the base service dependencies:
+Create a Python 3.12 virtual environment and install dependencies:
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
@@ -80,18 +80,10 @@ Run tests:
 
 ## MCP Server Setup
 
-Use Python 3.10 or newer for MCP. Python 3.12 is recommended when available.
-
-```bash
-python3.12 -m venv .venv-mcp
-.venv-mcp/bin/python -m pip install -r requirements.txt -r requirements-mcp.txt
-.venv-mcp/bin/python -c "from tradingview_service.mcp.server import create_server; create_server()"
-```
-
 Run the MCP server over stdio from the repository root:
 
 ```bash
-.venv-mcp/bin/python -m tradingview_service.mcp.server
+.venv/bin/python -m tradingview_service.mcp.server
 ```
 
 Example MCP client config:
@@ -100,7 +92,7 @@ Example MCP client config:
 {
   "mcpServers": {
     "tradingview-marketdata": {
-      "command": "/absolute/path/to/tradingview-market-data-service/.venv-mcp/bin/python",
+      "command": "/absolute/path/to/tradingview-market-data-service/.venv/bin/python",
       "args": ["-m", "tradingview_service.mcp.server"],
       "env": {
         "PYTHONPATH": "/absolute/path/to/tradingview-market-data-service"
@@ -111,6 +103,14 @@ Example MCP client config:
 ```
 
 Replace `/absolute/path/to/tradingview-market-data-service` with the absolute path to your local checkout.
+
+Smoke-test the MCP server:
+
+```bash
+.venv/bin/python scripts/check_mcp.py
+```
+
+The smoke script lists registered tools, calls `tv_health`, and calls `tv_history_multi` with a one-bar daily `BINANCE:BTCUSDT` request. Use `--symbol`, `--interval`, and `--limit` to override that request.
 
 ## MCP Tool Behavior
 
