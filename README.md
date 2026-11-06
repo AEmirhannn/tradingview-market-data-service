@@ -7,6 +7,7 @@ The current release includes:
 - A REST API for historical OHLCV retrieval.
 - An in-process market-data service layer shared by Flask and MCP.
 - A stdio MCP server with market-data tools.
+- Pure technical-analysis primitives for ATR, swing points, price-level clustering, and trend evidence.
 - Anonymous TradingView access by default, with optional credentialed mode.
 
 TradingView Desktop chart automation and visible chart annotation are planned but not implemented yet. See [FEATURE_PLAN.md](FEATURE_PLAN.md) for the roadmap.
@@ -123,6 +124,17 @@ The smoke script lists registered tools, calls `tv_health`, and calls `tv_histor
 `tv_history_multi` returns compact summaries for up to 12 symbol/interval requests. Multi-history output intentionally omits full bars to keep agent context usage bounded.
 
 All history tools use full TradingView symbols and the supported interval values listed above. Optional time bounds use `from_ts` and `to_ts` Unix timestamps. Multi-history request objects may also use `from` and `to` for compatibility with the REST query names.
+
+## Technical Analysis Python API
+
+`tradingview_service.analysis` exposes deterministic helpers that operate on `Bar` sequences without network access:
+
+- `average_true_range` accounts for close-to-open gaps.
+- `detect_swing_points` returns confirmed, uniquely high or low pivots.
+- `cluster_price_levels` groups nearby support/resistance candidates with touch counts and ranges.
+- `summarize_trend` reports short/long SMAs, regression slope, percentage change, and a bullish/bearish/flat classification.
+
+Invalid periods, insufficient history, and non-positive price levels raise the service's existing `ValidationError`. MCP analysis tools are the next planned increment.
 
 ## Authentication Mode
 

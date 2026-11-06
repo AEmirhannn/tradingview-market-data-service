@@ -110,13 +110,13 @@ Completion log:
 
 ## Phase 3: Technical-Analysis Helpers
 
-- [ ] Add `analysis/technical.py` with pure functions for common calculations.
-- [ ] Implement swing high/low detection.
-- [ ] Implement support/resistance level clustering.
-- [ ] Implement ATR and volatility summary.
-- [ ] Implement trend summary from moving averages or regression slope.
+- [x] Add `analysis/technical.py` with pure functions for common calculations.
+- [x] Implement swing high/low detection.
+- [x] Implement support/resistance level clustering.
+- [x] Implement ATR calculation.
+- [x] Implement trend summary from moving averages and regression slope.
 - [ ] Add `analysis/summaries.py` for compact agent-facing output.
-- [ ] Add deterministic tests with fixed bar fixtures.
+- [x] Add deterministic tests with fixed bar fixtures.
 
 Suggested commits:
 
@@ -279,4 +279,4 @@ Use this section to record completed increments.
 
 ## Current Next Step
 
-Implement Phase 2: add the MCP server MVP using in-process Python services by default.
+Continue Phase 3: compose the technical primitives into compact summaries and expose them through MCP.
